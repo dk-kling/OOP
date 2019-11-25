@@ -12,12 +12,6 @@ int main() {
         std::string tostr = obj->to_string();
         std::cout << tostr << std::endl;
     }
-    {
-	    std::string str("[[[]], [[]]]");
-	    json_object *obj = json_object::parse(str);
-	    std::string tostr = obj->to_string();
-	    std::cout << tostr << std::endl;
-    }
 
     {
         std::string str("'a'");
@@ -38,6 +32,7 @@ int main() {
         json_object* obj = json_object::parse(str);
         std::string tostr = obj->to_string();
         std::cout << tostr << std::endl;
+
         json_object* obj2 = json_object::parse(tostr);
         std::string tostr2 = obj2->to_string();
         std::cout << tostr2 << std::endl;
@@ -71,7 +66,7 @@ int main() {
     {
         std::string str("{'a': 'b', 'b': 'c', 'c': [1, 2, 3, [4], '5',], 1:3}");
         json_dict* dict = dynamic_cast<json_dict*>(json_object::parse(str));
-        std::string key("a");
+        std::string key("'a'");
         while (true) {
             std::cout << key << ": ";
             json_object* obj = (*dict)[key];

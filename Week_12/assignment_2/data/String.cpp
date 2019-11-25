@@ -14,12 +14,15 @@ void String::set_val(const std::string& str) {
 
 json_object* String::parse(const char* c, int length, char base) {
 	int first = ++_index;
+	//std::string str = " ";
 	std::string str = "\'";
 	while (c[_index] != base) {
 		str += c[_index++];
 	}
+	//std::string dest = str.substr(1, str.size());
 	str += "\'";
 	return new String(str);
+	//return new String(dest);
 }
 
 json_object::_type String::type() {
@@ -27,5 +30,7 @@ json_object::_type String::type() {
 }
 
 std::string String::to_string() {
+	//std::string str = "\'" + this->val() + "\'";
+	//return str;
 	return this->val();
 }

@@ -65,8 +65,11 @@ json_object* json_dict:: operator[](const std::string& key) const {
 }
 
 json_object* json_dict:: operator[](int key) const {
-
-	return this->v[key].second;
+	for (int i = 0; i < v.size(); i++) {
+		if (std::to_string(key) == v[i].first->to_string())
+			return this->v[i].second;
+	}
+	return nullptr;
 }
 
 json_object::_type json_dict::type() {
