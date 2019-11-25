@@ -5,22 +5,26 @@ json_list::json_list() {
 }
 
 json_object* json_list::parse(const char * c, int length) {
-	int first = ++_index;
+	
 	json_object* val = nullptr;
-	json_list* list = nullptr;
+	json_list* list = new json_list();
+	_index++;
+
 	while(c[_index] != ']') {
-		val = val->parse(c, length);
-		list->v.push_back(val);
-		if (c[_index] == ',') {
-			val = val->parse(c, length);
-			list->v.push_back(val);
+		if(c[_index] == ',' || c[_index] == ' ') {
+			_index++;
+			continue;
 		}
+		json_object* val = json_object::parse(c, length);
+		list->v.push_back(val);
+		
 		_index++;
 	}
+	return list;
 }
 
 json_object* json_list::operator[] (int key) const {
-	return nullptr;
+	return this->v[key];
 }
 
 json_object::_type json_list::type() {
@@ -30,7 +34,7 @@ json_object::_type json_list::type() {
 std::string json_list::to_string() {
 	std::string str = "[";
 	for (int i = 0; i < v.size(); i++) {
-		if (i != 0 && i != v.size()-1)
+		if (i != 0 && i != v.size())
 			str += ", ";
 		str += v[i]->to_string();
 	}

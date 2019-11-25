@@ -20,6 +20,7 @@ json_object* Integer::parse(const char* c, int length) {
 	while (c[_index] >= '0' && c[_index] <= '9') {
 		str += c[_index++];
 	}
+	_index--;
 	return new Integer(std::stoi(str));
 }
 
